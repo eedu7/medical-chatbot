@@ -6,6 +6,6 @@ from crud.base import BaseCRUD
 from models import User
 
 
-class UserCRUD(BaseCRUD[User]):
+class AuthCRUD(BaseCRUD[User]):
     def __init__(self, session: AsyncSession):
         super().__init__(model=User, session=session)
