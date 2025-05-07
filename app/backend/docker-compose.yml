@@ -11,7 +11,7 @@ services:
     networks:
       - postgres_network
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - ./volumes/pgdata:/var/lib/postgresql/data
 
   # postgres-test:
   #   image: postgres:17.3-alpine3.21

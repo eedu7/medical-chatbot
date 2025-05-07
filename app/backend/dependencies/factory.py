@@ -10,7 +10,7 @@ class Factory:
     @staticmethod
     def get_user_crud(session: AsyncSession = Depends(get_session)) -> UserCRUD:
         return UserCRUD(session=session)
-    
+
     @staticmethod
-    def get_auth_crud(session: AsyncSession=Depends(get_session)) -> AuthCRUD:
+    def get_auth_crud(session: AsyncSession = Depends(get_session)) -> AuthCRUD:
         return AuthCRUD(session=session)
