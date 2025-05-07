@@ -4,9 +4,9 @@ from uuid import UUID
 from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from config import config
 from crud.base import BaseCRUD
 from models import User
+from database import Transactional, Propagation
 
 
 class UserCRUD(BaseCRUD[User]):
@@ -95,6 +95,7 @@ class UserCRUD(BaseCRUD[User]):
                 },
             )
 
+    @Transactional(propagation=Propagation.REQUIRED)
     async def register(self, email: str, password: str, username: str) -> User:
         """
         Registers a new user asynchronously by hashing their password and saving
@@ -111,14 +112,14 @@ class UserCRUD(BaseCRUD[User]):
         Raises:
             BadRequestException: If a user with the same email already exists.
         """
-        user = await self.get_by_email(email)
-        if user:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail={
-                    "Place of occurence": "In the register method of the UserCRUD",
-                },
-            )
+        # user = await self.get_by_email(email)
+        # if user:
+        #     raise HTTPException(
+        #         status_code=status.HTTP_400_BAD_REQUEST,
+        #         detail={
+        #             "Place of occurence": "In the register method of the UserCRUD",
+        #         },
+        #     )
 
         user = await self.create(
             {"username": username, "email": email, "password": password}
