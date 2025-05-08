@@ -15,7 +15,3 @@ class Config(BaseConfig):
 
 
 config: Config = Config()
-
-
-print(config.POSTGRES_URL)
-print(config.TEST_POSTGRES_URL)

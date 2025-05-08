@@ -1,34 +1,33 @@
 import re
-from pydantic import BaseModel, EmailStr, SecretStr, Field, field_validator
+from uuid import UUID
+from pydantic import BaseModel, EmailStr, Field, field_validator
 
 
 class AuthBase(BaseModel):
     email: EmailStr
-    password: SecretStr
+    password: str = Field(..., examples=["Password@123"])
 
     @field_validator("password")
-    def password_must_contain_special_characters(cls, v: SecretStr) -> SecretStr:
-        password = v.get_secret_value()
-
-        if len(password) < 8:
+    def password_must_contain_special_characters(cls, v: str) -> str:
+        if len(v) < 8:
             raise ValueError("Password must be at least 8 characters long")
 
-        if not re.search(r"[^a-zA-z0-9]", password):
+        if not re.search(r"[^a-zA-z0-9]", v):
             raise ValueError("Password must contain special characters")
-        if not re.search(r"[0-9]", password):
+        if not re.search(r"[0-9]", v):
             raise ValueError("Password must contain numbers")
-        if not re.search(r"[A-Z]", password):
+        if not re.search(r"[A-Z]", v):
             raise ValueError("Password must contain uppercase characters")
-        if not re.search(r"[a-z]", password):
+        if not re.search(r"[a-z]", v):
             raise ValueError("Password must contain lowercase characters")
         return v
 
 
-class UserLoginModel(AuthBase):
+class AuthLoginModel(AuthBase):
     pass
 
 
-class UserRegisterModel(AuthBase):
+class AuthRegisterModel(AuthBase):
     username: str = Field(..., min_length=8, max_length=64)
 
     @field_validator("username")
@@ -38,3 +37,9 @@ class UserRegisterModel(AuthBase):
         if v.isdigit():
             raise ValueError("Username cannot be only nubmers")
         return v
+
+
+class AuthResponse(BaseModel):
+    uuid: UUID
+    username: str
+    email: EmailStr
