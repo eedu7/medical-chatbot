@@ -1,9 +1,11 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import JSONResponse
 
 from schemas.auth import AuthRegisterModel, AuthLoginModel
 from schemas.token import Token
 from dependencies.factory import Factory
 from crud.auth import AuthCRUD
+from crud.user import UserCRUD
 
 router = APIRouter()
 
@@ -44,6 +46,57 @@ async def logout():
     - Ensure Redis automatically deletes the record when the token expires
     """
     ...
+
+
+@router.get("/check-availability")
+async def check_availability(
+    username: str | None = None,
+    email: str | None = None,
+    controller: UserCRUD = Depends(Factory.get_user_crud),
+) -> JSONResponse:
+    if not username and not email:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail={
+                "message": "You must provide either a username or an email to check."
+            },
+        )
+
+    if username:
+        user = await controller.get_by_username(username)
+
+        if user:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail={"message": "Username is already taken."},
+            )
+
+        return JSONResponse(
+            status_code=status.HTTP_200_OK,
+            content={
+                "field": "username",
+                "available": True,
+                "message": "Username is available.",
+            },
+        )
+
+    elif email:
+        user = await controller.get_by_email(email)
+
+        if user:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail={"message": "Email is already registered"},
+            )
+
+        return JSONResponse(
+            status_code=status.HTTP_200_OK,
+            content={
+                "field": "email",
+                "available": True,
+                "message": "Email is available.",
+            },
+        )
 
 
 @router.post("/forgot-password")
