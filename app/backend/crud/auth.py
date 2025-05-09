@@ -47,6 +47,8 @@ class AuthCRUD(BaseCRUD[User]):
 
     # TODO: Add the return of this method
     async def login(self, email: str, password: str) -> Token:
+        from icecream import ic
+
         user = await self.user_crud.get_by_email(email)
 
         if not user:
@@ -55,7 +57,7 @@ class AuthCRUD(BaseCRUD[User]):
                 detail={"message": f'User with email "{email}" already exists.'},
             )
 
-        if PasswordHandler.verify_password(
+        if not PasswordHandler.verify_password(
             password=password, hashed_password=user.password
         ):
             raise HTTPException(

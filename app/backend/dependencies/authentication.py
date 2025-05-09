@@ -3,7 +3,7 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 
 class AuthenticationRequired:
-    def __call__(
+    def __init__(
         self,
         token: HTTPAuthorizationCredentials = Depends(HTTPBearer(auto_error=False)),
     ):

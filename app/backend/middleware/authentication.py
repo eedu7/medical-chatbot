@@ -36,11 +36,11 @@ class AuthBackend(AuthenticationBackend):
 
         try:
             payload = JWTHandler.decode(token)
-            user_uuid = payload.get("uuid")
+            user = payload.get("user")
+
         except JWTError:
             return False, current_user
-
-        current_user.uuid = UUID(user_uuid)
+        current_user.uuid = user["uuid"]
         return True, current_user
 
 

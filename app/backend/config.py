@@ -10,8 +10,10 @@ class BaseConfig(BaseSettings):
 
 
 class Config(BaseConfig):
-    POSTGRES_URL: str
-    TEST_POSTGRES_URL: str
+    POSTGRES_URL: str = (
+        "postgresql+asyncpg://postgres:password123@127.0.0.1:5432/fastapi-db"
+    )
+    TEST_POSTGRES_URL: str = "postgresql://postgres:password123@127.0.0.1:5431/db-test"
     JWT_SECRET_KEY: str
     JWT_ALGORITHM: str
     JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # One Day
