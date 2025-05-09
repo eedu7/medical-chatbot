@@ -4,7 +4,7 @@ from fastapi.responses import JSONResponse
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("/health")
 def index():
     return JSONResponse(
         status_code=status.HTTP_200_OK,

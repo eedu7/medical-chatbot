@@ -7,26 +7,53 @@ from crud.auth import AuthCRUD
 router = APIRouter()
 
 
-@router.post("/auth/register", response_model=AuthResponse)
+@router.post("/register", response_model=AuthResponse)
 async def register(
     data: AuthRegisterModel, controller: AuthCRUD = Depends(Factory.get_auth_crud)
 ):
     return await controller.register(
-        username=data.username,
-        email=data.email,
-        password=data.password
+        username=data.username, email=data.email, password=data.password
     )
 
-@router.post("/auth/login", response_model=AuthResponse)
-async def login(data: AuthLoginModel, controller: AuthCRUD = Depends(Factory.get_auth_crud)):
-    # TODO: Add the login logic
+
+@router.post("/login", response_model=AuthResponse)
+async def login(
+    data: AuthLoginModel, controller: AuthCRUD = Depends(Factory.get_auth_crud)
+):
+    # TODO: Implement login logic using provided credentials and return JWT tokens
     ...
-    
-@router.post("/auth/logout")
+
+
+@router.post("/refresh-token")
+async def refresh_token():
+    # TODO: Implement logic to refresh JWT token and return a new access token
+    ...
+
+
+@router.post("/logout")
 async def logout():
     """
-        TODO: Add the logout method, invalid the token,
-        store the token in the redis database, and also delete the record after
-        the jwt token expires.
+    TODO: Implement logout logic:
+    - Invalidate the current JWT token
+    - Store it in Redis blacklist
+    - Ensure Redis automatically deletes the record when the token expires
     """
+    ...
+
+
+@router.post("/forgot-password")
+async def forgot_password():
+    # TODO: Implement forgot password logic: send password reset link/token to user's email
+    ...
+
+
+@router.post("/reset-password")
+async def reset_password():
+    # TODO: Implement password reset logic: validate token and update the password
+    ...
+
+
+@router.post("/verify-email")
+async def verify_email():
+    # TODO: Implement email verification logic using token from query parameters
     ...

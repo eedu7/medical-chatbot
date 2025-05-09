@@ -42,5 +42,4 @@ class AuthCRUD(BaseCRUD[User]):
         return user
 
     # TODO: Add the return of this method
-    async def login(self, email: str, password: str):
-        ...
+    async def login(self, email: str, password: str): ...
