@@ -1,4 +1,5 @@
 from pathlib import Path
+from pydantic import PostgresDsn
 from pydantic_settings import BaseSettings
 
 
@@ -10,10 +11,13 @@ class BaseConfig(BaseSettings):
 
 
 class Config(BaseConfig):
-    POSTGRES_URL: str = (
+    POSTGRES_URL: PostgresDsn = (
         "postgresql+asyncpg://postgres:password123@127.0.0.1:5432/fastapi-db"
     )
-    TEST_POSTGRES_URL: str = "postgresql://postgres:password123@127.0.0.1:5431/db-test"
+    TEST_POSTGRES_URL: PostgresDsn = (
+        "postgresql://postgres:password123@127.0.0.1:5431/db-test"
+    )
+    RELEASE_VERSION: str = "0.0.1"
     JWT_SECRET_KEY: str
     JWT_ALGORITHM: str
     JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24  # One Day
