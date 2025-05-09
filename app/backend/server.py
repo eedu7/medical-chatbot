@@ -13,8 +13,8 @@ def init_routers(app_: FastAPI) -> None:
 
 def make_middleware() -> List[Middleware]:
     return [
+        Middleware(AuthenticationMiddleware, backend=AuthBackend()),
         Middleware(SQLAlchemyMiddleware),
-        Middleware(AuthenticationMiddleware, backend=AuthBackend),
     ]
 
 
