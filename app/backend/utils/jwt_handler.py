@@ -10,8 +10,6 @@ from config import config
 from .current_datetime import get_current_datetime
 
 
-
-
 class TokenType(StrEnum):
     ACCESS_TOKEN = "access_token"
     REFRESH_TOKEN = "refresh_token"
@@ -59,7 +57,9 @@ class JWTHandler:
         except Exception:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail={"message": "Invalid token",}
+                detail={
+                    "message": "Invalid token",
+                },
             )
 
     @classmethod
@@ -79,5 +79,5 @@ class JWTHandler:
         except Exception as e:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail={"message": "Invalid token"}
+                detail={"message": "Invalid token"},
             )
