@@ -1,13 +1,14 @@
 from fastapi import APIRouter, Depends
 
-from schemas.auth import AuthRegisterModel, AuthResponse, AuthLoginModel
+from schemas.auth import AuthRegisterModel, AuthLoginModel
+from schemas.token import Token
 from dependencies.factory import Factory
 from crud.auth import AuthCRUD
 
 router = APIRouter()
 
 
-@router.post("/register", response_model=AuthResponse)
+@router.post("/register", )
 async def register(
     data: AuthRegisterModel, controller: AuthCRUD = Depends(Factory.get_auth_crud)
 ):
@@ -16,12 +17,13 @@ async def register(
     )
 
 
-@router.post("/login", response_model=AuthResponse)
+@router.post("/login", response_model=Token)
 async def login(
     data: AuthLoginModel, controller: AuthCRUD = Depends(Factory.get_auth_crud)
-):
-    # TODO: Implement login logic using provided credentials and return JWT tokens
-    ...
+) -> Token:
+    return await controller.login(
+        email=data.email, password=data.password,
+    )
 
 
 @router.post("/refresh-token")

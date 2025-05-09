@@ -38,8 +38,3 @@ class AuthRegisterModel(AuthBase):
             raise ValueError("Username cannot be only nubmers")
         return v
 
-
-class AuthResponse(BaseModel):
-    uuid: UUID
-    username: str
-    email: EmailStr
