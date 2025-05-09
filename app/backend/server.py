@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware import Middleware
 
 from api import router
-from middleware import SQLAlchemyMiddleware
+from middleware import SQLAlchemyMiddleware, AuthBackend, AuthenticationMiddleware
 
 
 def init_routers(app_: FastAPI) -> None:
@@ -12,7 +12,10 @@ def init_routers(app_: FastAPI) -> None:
 
 
 def make_middleware() -> List[Middleware]:
-    return [Middleware(SQLAlchemyMiddleware)]
+    return [
+        Middleware(SQLAlchemyMiddleware),
+        Middleware(AuthenticationMiddleware, backend=AuthBackend),
+    ]
 
 
 def create_app() -> FastAPI:
