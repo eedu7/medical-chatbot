@@ -8,7 +8,9 @@ from crud.auth import AuthCRUD
 router = APIRouter()
 
 
-@router.post("/register", )
+@router.post(
+    "/register",
+)
 async def register(
     data: AuthRegisterModel, controller: AuthCRUD = Depends(Factory.get_auth_crud)
 ):
@@ -22,7 +24,8 @@ async def login(
     data: AuthLoginModel, controller: AuthCRUD = Depends(Factory.get_auth_crud)
 ) -> Token:
     return await controller.login(
-        email=data.email, password=data.password,
+        email=data.email,
+        password=data.password,
     )
 
 

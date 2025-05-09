@@ -37,4 +37,3 @@ class AuthRegisterModel(AuthBase):
         if v.isdigit():
             raise ValueError("Username cannot be only nubmers")
         return v
-
