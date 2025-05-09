@@ -8,4 +8,4 @@ router = APIRouter(prefix="/api")
 
 router.include_router(health_router, prefix="/monitoring", tags=["API Health"])
 router.include_router(auth_router, prefix="/auth", tags=["Authentication"])
-router.include_router(users_router,prefix="/users", tags=["User"])
+router.include_router(users_router, prefix="/users", tags=["User"])
