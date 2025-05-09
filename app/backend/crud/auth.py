@@ -13,13 +13,13 @@ class AuthCRUD(BaseCRUD[User]):
 
     @Transactional(propagation=Propagation.REQUIRED)
     async def register(self, username: str, email: str, password: str) -> User:
-        email_exist = self.get_by(filters={"email": email})
+        email_exist = await self.get_by(filters={"email": email})
 
         if email_exist:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail={
-                    "message": f"User with the email {email} already exists.",
+                    "message": f'User with the email "{email}" already exists.',
                 },
             )
 
@@ -29,7 +29,7 @@ class AuthCRUD(BaseCRUD[User]):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail={
-                    "message": f"User with the email {email} already exists.",
+                    "message": f'User with the email "{username}" already exists.',
                 },
             )
 
@@ -40,3 +40,7 @@ class AuthCRUD(BaseCRUD[User]):
         )
 
         return user
+
+    # TODO: Add the return of this method
+    async def login(self, email: str, password: str):
+        ...
