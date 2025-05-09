@@ -46,7 +46,7 @@ class BaseCRUD(Generic[ModelType]):
             result = await self.session.execute(query)
 
             if unique:
-                return result.scalar().first()
+                return result.scalars().first()
 
             return result.scalars().all()
         except Exception as e:

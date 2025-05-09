@@ -28,7 +28,7 @@ class AuthLoginModel(AuthBase):
 
 
 class AuthRegisterModel(AuthBase):
-    username: str = Field(..., min_length=8, max_length=64)
+    username: str = Field(..., min_length=3, max_length=18)
 
     @field_validator("username")
     def username_must_not_contain_special_characters(cls, v: str) -> str:

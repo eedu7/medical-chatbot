@@ -18,7 +18,8 @@ class TokenType(StrEnum):
 class JWTHandler:
     secret_key: str = config.JWT_SECRET_KEY
     algorithm: str = config.JWT_ALGORITHM
-    expire_minutes: int = config.JWT_EXPIRE_MINUTES
+    access_expire_minutes: int = config.JWT_ACCESS_TOKEN_EXPIRE_MINUTES
+    refresh_expire_minutes: int = config.JWT_REFRESH_TOKEN_EXPIRE_MINUTES
 
     @classmethod
     def encode(
@@ -28,10 +29,10 @@ class JWTHandler:
     ) -> str:
         time_of_encoding = get_current_datetime()
 
-        expire = time_of_encoding + timedelta(minutes=cls.expire_minutes)
-
-        if token_type == TokenType.REFRESH_TOKEN:
-            expire = time_of_encoding + timedelta(minutes=cls.expire_minutes * 7)
+        if token_type == TokenType.ACCESS_TOKEN:
+            expire = time_of_encoding + timedelta(minutes=cls.access_expire_minutes)
+        elif token_type == TokenType.REFRESH_TOKEN:
+            expire = time_of_encoding + timedelta(minutes=cls.refresh_expire_minutes)
 
         jti = str(uuid4())
 

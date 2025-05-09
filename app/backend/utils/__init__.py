@@ -1,5 +1,5 @@
 from .password_handler import PasswordHandler
-from .jwt_handler import JWTHandler
+from .jwt_handler import JWTHandler, TokenType
 
 
-__all__ = ["PasswordHandler", "JWTHandler"]
+__all__ = ["PasswordHandler", "JWTHandler", "TokenType"]
