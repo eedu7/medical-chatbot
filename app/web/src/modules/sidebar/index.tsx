@@ -6,6 +6,9 @@ import { PreviousChatGroup } from "@/modules/sidebar/PreviousChatGroup";
 import { Header } from "@/modules/sidebar/Header";
 
 export const HomeSidebar = () => {
+    /*
+     * TODO: Add links and functionality to the Sidebar and its components
+     * */
     return (
         <Sidebar collapsible="icon">
             <Header />

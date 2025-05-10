@@ -1,10 +1,16 @@
+"use client";
+
 import React from "react";
-import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuItem } from "@/components/ui/sidebar";
+import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { prompts } from "@/modules/sidebar/constants";
 import Link from "next/link";
 
 export const PreviousChatGroup = () => {
+    const { state } = useSidebar();
+
+    if (state === "collapsed") return null;
+
     return (
         <SidebarGroup className="h-full">
             <SidebarGroupLabel>Recents</SidebarGroupLabel>
@@ -15,7 +21,7 @@ export const PreviousChatGroup = () => {
                             <SidebarMenuItem key={index}>
                                 {/*TODO: Added proper links*/}
                                 <Link
-                                    href="#"
+                                    href="/"
                                     className="text-muted-foreground cursor-pointer text-sm hover:text-black"
                                 >
                                     <p className="line-clamp-1">{value}</p>

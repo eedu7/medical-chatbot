@@ -30,7 +30,15 @@ export const Header = () => {
                         >
                             <SidebarTrigger />
                         </SidebarMenuButton>
-                        <h1 className={cn(poppins.className, "text-lg tracking-widest")}>Medoc</h1>
+                        <h1
+                            className={cn(
+                                poppins.className,
+                                "text-lg tracking-widest",
+                                state === "collapsed" && "hidden",
+                            )}
+                        >
+                            Medoc
+                        </h1>
                     </div>
                 </SidebarMenuItem>
             </SidebarMenu>
