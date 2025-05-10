@@ -93,12 +93,12 @@ const LearnMoreSubMenu = () => {
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem className="hover:bg-accent">
-                    <Linkg
+                    <Link
                         href="/legal/privacy-policy"
                         className="flex w-28 items-center justify-between"
                     >
                         <p>Privacy policy</p> <ExternalLinkIcon />
-                    </Linkg>
+                    </Link>
                 </DropdownMenuItem>
             </DropdownMenuSubContent>
         </DropdownMenuSub>
