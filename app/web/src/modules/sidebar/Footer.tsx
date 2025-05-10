@@ -6,10 +6,14 @@ import {
     DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuSeparator,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CheckIcon, ChevronUp, User2Icon } from "lucide-react";
+import { CheckIcon, ChevronUp, ExternalLinkIcon, User2Icon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
 
 export const Footer = () => {
     return (
@@ -61,7 +65,7 @@ export const Footer = () => {
                             <DropdownMenuSeparator />
                             <DropdownMenuGroup>
                                 <DropdownMenuItem>View plans</DropdownMenuItem>
-                                <DropdownMenuItem>Learn more</DropdownMenuItem>
+                                <LearnMoreSubMenu />
                             </DropdownMenuGroup>
                             <DropdownMenuSeparator />
                             <DropdownMenuGroup>
@@ -72,5 +76,31 @@ export const Footer = () => {
                 </SidebarMenuItem>
             </SidebarMenu>
         </SidebarFooter>
+    );
+};
+
+const LearnMoreSubMenu = () => {
+    return (
+        <DropdownMenuSub>
+            <DropdownMenuSubTrigger className="w-full">Learn more</DropdownMenuSubTrigger>
+            <DropdownMenuSubContent>
+                <DropdownMenuItem className="hover:bg-accent">
+                    <Link
+                        href="/legal/usage-policy"
+                        className="flex w-28 items-center justify-between"
+                    >
+                        <p>Usage policy</p> <ExternalLinkIcon />
+                    </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="hover:bg-accent">
+                    <Linkg
+                        href="/legal/privacy-policy"
+                        className="flex w-28 items-center justify-between"
+                    >
+                        <p>Privacy policy</p> <ExternalLinkIcon />
+                    </Linkg>
+                </DropdownMenuItem>
+            </DropdownMenuSubContent>
+        </DropdownMenuSub>
     );
 };
