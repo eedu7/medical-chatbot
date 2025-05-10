@@ -5,13 +5,11 @@ import { HomeSidebar } from "@/modules/sidebar";
 
 export default function HomeLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div className="min-h-screen">
-            <SidebarProvider>
-                <HomeSidebar />
-                <div className="relative">
-                    <main className="w-full border">{children}</main>
-                </div>
-            </SidebarProvider>
-        </div>
+        <SidebarProvider>
+            <HomeSidebar />
+            <div className="flex min-h-screen w-full max-w-screen flex-col">
+                <main className="flex-1">{children}</main>
+            </div>
+        </SidebarProvider>
     );
 }
