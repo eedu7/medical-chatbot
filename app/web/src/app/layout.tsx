@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "Medical-Chatbot",
+    title: "AI Medical Chatbot",
     description: "AI-Powered Multi-Cancer Detection and Medical Chatbot",
 };
 
